@@ -1,0 +1,28 @@
+stages:
+- stage: azure_linux_test
+  displayName: 'azure-linux-test-aarch64'
+
+  jobs:
+  - job: 'arm64'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - checkout: self
+      submodules: true
+      clean: true
+
+    - script: |
+        sudo apt-get update
+        sudo apt-get install qemu
+        sudo apt-get install qemu-user
+        sudo apt-get install qemu-user-static
+        sudo apt-get install qemu-system-arm
+      displayName: 'Installing qemu libraries'
+    - script: docker run --rm --privileged hypriot/qemu-register
+      displayName: 'Regietering qemu'
+    - script: |
+        sudo install -d -m 0777 /usr/envs
+        export DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
+        bash azure/azure-pipeline_aarch64/run_docker_build.sh
+      displayName: 'Running AArch64 build'
