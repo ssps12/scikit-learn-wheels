@@ -1,5 +1,4 @@
-schedules:
-- displayName: 'azure-linux-test-aarch64'
+displayName: 'azure-linux-test-aarch64'
 
   jobs:
   - job: 'arm64'
