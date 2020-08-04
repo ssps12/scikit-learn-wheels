@@ -1,5 +1,3 @@
-displayName: 'azure-linux-test-aarch64'
-
   jobs:
   - job: 'arm64'
     pool:
