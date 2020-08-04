@@ -1,6 +1,5 @@
-stages:
-- stage: azure_linux_test
-  displayName: 'azure-linux-test-aarch64'
+schedules:
+- displayName: 'azure-linux-test-aarch64'
 
   jobs:
   - job: 'arm64'
