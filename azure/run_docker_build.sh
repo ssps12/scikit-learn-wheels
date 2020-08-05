@@ -23,7 +23,7 @@ fi
 
 export UPLOAD_PACKAGES="${UPLOAD_PACKAGES:-True}"
 docker run ${DOCKER_RUN_ARGS} \
-           -v "${MULTIDICT_ROOT}":/home/conda/root:rw,z \
+           -v "${ROOT}":/home/conda/root:rw,z \
            -e TEST_START_INDEX \
            -e TEST_COUNT \
            -e HOST_USER_ID \
