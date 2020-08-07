@@ -1,5 +1,19 @@
   jobs:
   - job: 'arm64'
+    strategy:
+      matrix:
+        py_3.6_64:
+          MB_PYTHON_VERSION: '3.6'
+          no_extensions: ''
+          image: 'ubuntu-latest'
+        py_3.7_64:
+          MB_PYTHON_VERSION: '3.7'
+          no_extensions: ''
+          image: 'ubuntu-latest'
+        py_3.8_64:
+          MB_PYTHON_VERSION: '3.8'
+          no_extensions: ''
+          image: 'ubuntu-latest'
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -7,6 +21,11 @@
     - checkout: self
       submodules: true
       clean: true
+      
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(MB_PYTHON_VERSION)'
+        architecture: 'x64'
 
     - script: |
         sudo apt-get update
@@ -18,7 +37,12 @@
     - script: docker run --rm --privileged hypriot/qemu-register
       displayName: 'Regietering qemu'
     - script: |
-        sudo install -d -m 0777 /usr/envs
         export DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
-        bash azure/run_docker_build.sh
+        set -xeo pipefail
+        export ROOT=$(cd "$(dirname "$0")/.."; pwd;)
+        export HOST_USER_ID=$(id -u)
+        docker run -v "${ROOT}":/home/root:rw,z \
+                   -e HOST_USER_ID \
+                   $DOCKER_IMAGE \
+                   bash azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
