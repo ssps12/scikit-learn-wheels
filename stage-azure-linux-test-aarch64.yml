@@ -45,6 +45,5 @@
         docker run -v "${ROOT}":/home/root:rw,z \
                    -e HOST_USER_ID \
                    $DOCKER_IMAGE \
-                   pwd
-                   bash /opt/hostedtoolcache/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
+                   bash /home/vsts/work/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
