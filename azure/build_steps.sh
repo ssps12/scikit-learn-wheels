@@ -1,37 +1,4 @@
-parameters:
-  name: ""
-  vmImage: ""
-  matrix: []
-
-jobs:
-  - job: ${{ parameters.name }}
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      REPO_DIR: "scikit-learn"
-      PLAT: "arm64"
-      NP_BUILD_DEP: "numpy==1.13.3"
-      CYTHON_BUILD_DEP: "cython==0.29.14"
-      SCIPY_BUILD_DEP: "scipy"
-      JOBLIB_BUILD_DEP: "joblib==0.11"
-      NIGHTLY_BUILD_COMMIT: "master"
-      NIGHTLY_BUILD: "false"
-      TEST_DEPENDS: "pytest"
-      JUNITXML: "test-data.xml"
-      TEST_DIR: "tmp_for_test"
-    strategy:
-      matrix:
-        ${{ insert }}: ${{ parameters.matrix }}
-
     steps:
-      - checkout: self
-        submodules: true
-
-      - task: UsePythonVersion@0
-        inputs:
-          versionSpec: $(MB_PYTHON_VERSION)
-        displayName: Set python version
-
       - bash: |
           set -e
           SKIP_BUILD="false"
