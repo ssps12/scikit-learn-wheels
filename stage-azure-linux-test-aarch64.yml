@@ -45,5 +45,5 @@
         docker run -v "${ROOT}":/home/root:rw,z \
                    -e HOST_USER_ID \
                    $DOCKER_IMAGE \
-                   bash azure/build_steps.sh "$(MB_PYTHON_VERSION)"
+                   bash /home/root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
