@@ -26,6 +26,7 @@
       inputs:
         versionSpec: '$(MB_PYTHON_VERSION)'
         architecture: 'x64'
+        displayName: Set python version
 
     - script: |
         sudo apt-get update
