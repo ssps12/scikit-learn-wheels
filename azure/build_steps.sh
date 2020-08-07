@@ -1,3 +1,15 @@
+echo "exporting Scikit-learn root directory"
+export SCIKITLEARN_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
+yum update -y
+echo "Installing build dependencies"
+yum install gcc gcc-c++ python3-devel wget make enchant-devel -y
+cd '/home/scikitlearn_root'
+export PATH='/opt/bin':${PATH}
+echo "Installing requirement"
+/opt/_internal/cpython-$1*/bin/python -m pip install -U setuptools wheel
+echo "Building wheels"
+/opt/_internal/cpython-$1*/bin/python
+ls dist    
     steps:
       - bash: |
           set -e
