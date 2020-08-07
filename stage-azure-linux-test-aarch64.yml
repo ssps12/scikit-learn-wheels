@@ -40,10 +40,10 @@
     - script: |
         export DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
         set -xeo pipefail
-        export SCIKIT-LEARN-WHEELS_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
+        export SCIKIT-LEARN_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
         export HOST_USER_ID=$(id -u)
-        docker run -v "${SCIKIT-LEARN-WHEELS_ROOT}":/home/scikit-learn-wheels_root:rw,z \
+        docker run -v "${SCIKIT-LEARN_ROOT}":/home/scikit-learn_root:rw,z \
                    -e HOST_USER_ID \
                    $DOCKER_IMAGE \
-                   bash /home/scikit-learn-wheels_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
+                   bash /home/scikit-learn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
