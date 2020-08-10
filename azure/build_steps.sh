@@ -4,7 +4,8 @@ cd '/home/scikitlearn_root'
 export PATH='/opt/bin':${PATH}
 echo "Installing requirement"
 /opt/_internal/cpython-$1*/bin/python -m pip install -U setuptools wheel
-steps:
+jobs:
+  - steps:
   - bash: |
       set -e
       SKIP_BUILD="false"
