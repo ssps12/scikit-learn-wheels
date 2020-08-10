@@ -13,7 +13,7 @@ if [ "$BUILD_REASON" == "Schedule" ]; then
   fi
 fi
 echo "Building scikit-learn@$BUILD_COMMIT"
-echo "##vso[task.setvariable variable=BUILD_COMMIT]$BUILD_COMMIT"
+echo "##vso[task.setvariable variable=BUILD_COMMIT]master"
 echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
 # Platform variables used in multibuild scripts
 echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
@@ -21,9 +21,9 @@ echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
 # to same Python version.
 PYTHON_EXE=`which python`
 echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
-displayName: Define build env variables
+echo " Define build env variables "
 /opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
-BUILD_DEPENDS="$NP_BUILD_DEP $CYTHON_BUILD_DEP $SCIPY_BUILD_DEP"
+BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
 source extra_functions.sh
@@ -31,21 +31,20 @@ source extra_functions.sh
 before_install
 # OpenMP is not present on macOS by default
 setup_compiler
-clean_code $REPO_DIR $BUILD_COMMIT
-build_wheel $REPO_DIR $PLAT
+clean_code scikit-learn master
+build_wheel scikit-learn aarch64
 teardown_compiler
-displayName: Build wheel
+echo "Build wheel"
 condition: eq(variables['SKIP_BUILD'], 'false')
-  - bash: |
-      set -xe
-      source multibuild/common_utils.sh
-      source multibuild/travis_steps.sh
-      source extra_functions.sh
-      setup_test_venv
-      install_run $PLAT
-      teardown_test_venv
-    displayName: Install wheel and test
-    condition: eq(variables['SKIP_BUILD'], 'false')
+set -xe
+source multibuild/common_utils.sh
+source multibuild/travis_steps.sh
+source extra_functions.sh
+setup_test_venv
+install_run aarch64
+teardown_test_venv
+echo "Install wheel and test"
+condition: eq(variables['SKIP_BUILD'], 'false')
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '$(TEST_DIR)/$(JUNITXML)'
