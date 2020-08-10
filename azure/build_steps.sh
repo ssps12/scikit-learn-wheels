@@ -4,43 +4,38 @@ cd '/home/scikitlearn_root'
 export PATH='/opt/bin':${PATH}
 echo "Installing requirement"
 /opt/_internal/cpython-$1*/bin/python -m pip install -U setuptools wheel
-jobs:
-  - steps:
-  - bash: |
-      set -e
-      SKIP_BUILD="false"
-      if [ "$BUILD_REASON" == "Schedule" ]; then
-        BUILD_COMMIT=$NIGHTLY_BUILD_COMMIT
-        if [ "$NIGHTLY_BUILD" != "true" ]; then
-          SKIP_BUILD="true"
-        fi
-      fi
-      echo "Building scikit-learn@$BUILD_COMMIT"
-      echo "##vso[task.setvariable variable=BUILD_COMMIT]$BUILD_COMMIT"
-      echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
-      # Platform variables used in multibuild scripts
-      echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
-      # Store original Python path to be able to create test_venv pointing
-      # to same Python version.
-      PYTHON_EXE=`which python`
-      echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
-    displayName: Define build env variables
-  - bash: |
-      set -e
-      /opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
-      BUILD_DEPENDS="$NP_BUILD_DEP $CYTHON_BUILD_DEP $SCIPY_BUILD_DEP"
-      source multibuild/common_utils.sh
-      source multibuild/travis_steps.sh
-      source extra_functions.sh
-      # Setup build dependencies
-      before_install
-      # OpenMP is not present on macOS by default
-      setup_compiler
-      clean_code $REPO_DIR $BUILD_COMMIT
-      build_wheel $REPO_DIR $PLAT
-      teardown_compiler
-    displayName: Build wheel
-    condition: eq(variables['SKIP_BUILD'], 'false')
+set -e
+SKIP_BUILD="false"
+if [ "$BUILD_REASON" == "Schedule" ]; then
+  BUILD_COMMIT=$NIGHTLY_BUILD_COMMIT
+  if [ "$NIGHTLY_BUILD" != "true" ]; then
+    SKIP_BUILD="true"
+  fi
+fi
+echo "Building scikit-learn@$BUILD_COMMIT"
+echo "##vso[task.setvariable variable=BUILD_COMMIT]$BUILD_COMMIT"
+echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
+# Platform variables used in multibuild scripts
+echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
+# Store original Python path to be able to create test_venv pointing
+# to same Python version.
+PYTHON_EXE=`which python`
+echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
+displayName: Define build env variables
+/opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
+BUILD_DEPENDS="$NP_BUILD_DEP $CYTHON_BUILD_DEP $SCIPY_BUILD_DEP"
+source multibuild/common_utils.sh
+source multibuild/travis_steps.sh
+source extra_functions.sh
+# Setup build dependencies
+before_install
+# OpenMP is not present on macOS by default
+setup_compiler
+clean_code $REPO_DIR $BUILD_COMMIT
+build_wheel $REPO_DIR $PLAT
+teardown_compiler
+displayName: Build wheel
+condition: eq(variables['SKIP_BUILD'], 'false')
   - bash: |
       set -xe
       source multibuild/common_utils.sh
