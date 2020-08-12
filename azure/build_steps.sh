@@ -12,6 +12,10 @@ if [ "$BUILD_REASON" == "Schedule" ]; then
     SKIP_BUILD="true"
   fi
 fi
+- task: UsePythonVersion@0
+        inputs:
+          versionSpec: $(MB_PYTHON_VERSION)
+        echo "Set python version"
 echo "Building scikit-learn@$BUILD_COMMIT"
 echo "##vso[task.setvariable variable=BUILD_COMMIT]master"
 echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
