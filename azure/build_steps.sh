@@ -12,10 +12,6 @@ if [ "$BUILD_REASON" == "Schedule" ]; then
     SKIP_BUILD="true"
   fi
 fi
-- task: UsePythonVersion@0
-        inputs:
-          versionSpec: $(MB_PYTHON_VERSION)
-        echo "Set python version"
 echo "Building scikit-learn@$BUILD_COMMIT"
 echo "##vso[task.setvariable variable=BUILD_COMMIT]master"
 echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
@@ -23,7 +19,7 @@ echo "##vso[task.setvariable variable=SKIP_BUILD]$SKIP_BUILD"
 echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
 # Store original Python path to be able to create test_venv pointing
 # to same Python version.
-PYTHON_EXE=/opt/_internal/cpython-$1*/bin/python
+PYTHON_EXE=`which python`
 echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
 echo " Define build env variables "
 /opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
