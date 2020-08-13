@@ -25,7 +25,7 @@ echo " Define build env variables "
 /opt/_internal/cpython-3.6.11/bin/python -m pip install --upgrade pip
 yum install gcc gcc-c++ python3-devel wget make enchant-devel -y
 yum install python-virtualenv -y
-find / -type f -name virtualenv
+yum install docker -y
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
