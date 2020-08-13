@@ -23,7 +23,6 @@ PYTHON_EXE=`which python`
 echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
 echo " Define build env variables "
 /opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
-which virtualenv
 find / -type f -name virtualenv
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
