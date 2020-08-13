@@ -24,8 +24,8 @@ echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
 echo " Define build env variables "
 /opt/_internal/cpython-3.6.11/bin/python -m pip install --upgrade pip
 /opt/_internal/cpython-$1*/bin/python -m pip install virtualenv
-find / -type f -name virtualenv
-export PATH==/opt/_internal/cpython-3.6.11/bin/virtualenv:$PATH
+export PATH=/opt/_internal/cpython-3.6.11/bin/virtualenv:$PATH
+echo $PATH
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
