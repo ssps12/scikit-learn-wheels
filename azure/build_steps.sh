@@ -26,6 +26,7 @@ echo " Define build env variables "
 yum install gcc gcc-c++ python3-devel wget make enchant-devel -y
 yum install python-virtualenv -y
 yum install docker -y
+service docker start
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
