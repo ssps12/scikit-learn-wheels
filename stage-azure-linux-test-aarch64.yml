@@ -32,8 +32,8 @@
       displayName: 'Regietering qemu'
     - script: |
         set -xeo pipefail
-        pwd
         export SCIKITLEARN_ROOT=`pwd`
         echo $SCIKITLEARN_ROOT
-        source /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
+        ls
+        bash /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
