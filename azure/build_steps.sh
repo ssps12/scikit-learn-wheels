@@ -1,10 +1,8 @@
 echo "exporting Scikit-learn root directory"
 export SCIKITLEARN_ROOT=`pwd`
-which python3
-find / -type f -name python
 export PATH='/opt/bin':${PATH}
 echo "Installing requirement"
-/opt/_internal/cpython-$1*/bin/python -m pip install -U setuptools wheel
+/opt/hostedtoolcache/Python/*/x64/bin/python3 -m pip install -U setuptools wheel
 set -e
 SKIP_BUILD="false"
 if [ "$BUILD_REASON" == "Schedule" ]; then
@@ -23,11 +21,9 @@ echo "##vso[task.setvariable variable=TRAVIS_OS_NAME]linux"
 PYTHON_EXE=`which python`
 echo "##vso[task.setvariable variable=PYTHON_EXE]$PYTHON_EXE"
 echo " Define build env variables "
-/opt/_internal/cpython-3.6.11/bin/python -m pip install --upgrade pip
+/opt/hostedtoolcache/Python/*/x64/bin/python3 -m pip install --upgrade pip
 yum install gcc gcc-c++ python3-devel wget make enchant-devel -y
 yum install python-virtualenv -y
-yum install docker -y
-service docker start
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
 source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
