@@ -1,6 +1,7 @@
 echo "exporting Scikit-learn root directory"
-export SCIKITLEARN_ROOT=$(cd "$(dirname "$0")/.."; pwd;)
-cd '/home/scikitlearn_root'
+export SCIKITLEARN_ROOT=`pwd`
+which python3
+find / -type f -name python
 export PATH='/opt/bin':${PATH}
 echo "Installing requirement"
 /opt/_internal/cpython-$1*/bin/python -m pip install -U setuptools wheel
