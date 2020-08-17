@@ -33,7 +33,7 @@
     - script: |
         set -xeo pipefail
         pwd
-        export SCIKITLEARN_ROOT=$(cd "$(dirname "$0")/../1/s"; pwd;)
+        export SCIKITLEARN_ROOT=`pwd`
         echo $SCIKITLEARN_ROOT
         source /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
