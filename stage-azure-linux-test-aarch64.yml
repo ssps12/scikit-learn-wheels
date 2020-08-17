@@ -36,6 +36,7 @@
         export SCIKITLEARN_ROOT=$(cd "$(dirname "$0")/../1/s"; pwd;)
         export HOST_USER_ID=$(id -u)
         echo $SCIKITLEARN_ROOT
+        ls
         bash /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
         # docker run -v "${SCIKITLEARN_ROOT}":/home/scikitlearn_root:rw,z \
                    # -e HOST_USER_ID \
