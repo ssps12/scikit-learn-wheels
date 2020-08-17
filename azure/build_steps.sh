@@ -25,7 +25,8 @@ echo " Define build env variables "
 # yum install gcc gcc-c++ python3-devel wget make enchant-devel -y
 sudo apt-get install -y python-virtualenv 
 BUILD_DEPENDS="numpy==1.13.3 cython==0.29.14 scipy"
-sudo source multibuild/common_utils.sh
+chmod 777 multibuild/common_utils.sh
+source multibuild/common_utils.sh
 source multibuild/travis_steps.sh
 source extra_functions.sh
 # Setup build dependencies
