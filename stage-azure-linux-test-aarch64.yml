@@ -31,14 +31,8 @@
     - script: docker run --rm --privileged hypriot/qemu-register
       displayName: 'Regietering qemu'
     - script: |
-        # export DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
         set -xeo pipefail
         export SCIKITLEARN_ROOT=$(cd "$(dirname "$0")/../1/s"; pwd;)
-        # export HOST_USER_ID=$(id -u)
         echo $SCIKITLEARN_ROOT
-        bash /home/scikitlearn_root/azure/build_steps.sh
-        # docker run -v "${SCIKITLEARN_ROOT}":/home/scikitlearn_root:rw,z \
-                   # -e HOST_USER_ID \
-                   # $DOCKER_IMAGE \
-                   # bash /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
+        bash /home/scikitlearn_root/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
       displayName: 'Running AArch64 build'
