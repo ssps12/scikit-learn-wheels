@@ -1,5 +1,5 @@
   jobs:
-  - job: 'arm64'
+  - job: 'aarch64'
     variables:
       REPO_DIR: "scikit-learn"
       PLAT: "aarch64"
