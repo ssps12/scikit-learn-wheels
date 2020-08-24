@@ -49,8 +49,9 @@
         set -xeo pipefail
         export SCIKITLEARN_ROOT=`pwd`
         echo $SCIKITLEARN_ROOT
-        # bash $SCIKITLEARN_ROOT/azure/build_steps.sh "$(MB_PYTHON_VERSION)"
-      # displayName: 'Running AArch64 build'
+        export PATH=/opt/conda/bin:$PATH
+        azure/install_conda_aarch64.sh
+    displayName: 'Before Install'
     - bash: |
         set -e
         SKIP_BUILD="false"
