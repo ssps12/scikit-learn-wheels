@@ -50,7 +50,7 @@
         export SCIKITLEARN_ROOT=`pwd`
         echo $SCIKITLEARN_ROOT
         export PATH=/opt/conda/bin:$PATH
-        azure/install_conda_aarch64.sh
+        sudo azure/install_conda_aarch64.sh
       displayName: 'Before Install'
     - bash: |
         set -e
