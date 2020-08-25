@@ -43,7 +43,6 @@ fi
 
 
 # Deactivate any environment
-source deactivate
 # Display root environment (for debugging)
 conda list
 # Clean up any left-over from a previous build
