@@ -49,12 +49,13 @@
         set -xeo pipefail
         export SCIKITLEARN_ROOT=`pwd`
         echo $SCIKITLEARN_ROOT
-        export PATH=$HOME/miniconda3/bin:$PATH
+        export PATH=$HOME/miniconda/bin:$PATH
         chmod 777 azure/install_conda_aarch64.sh
         azure/install_conda_aarch64.sh
       displayName: 'Before Install'
     - bash: |
         set -e
+        export PATH=$HOME/miniconda/bin:$PATH
         SKIP_BUILD="false"
         if [ "$BUILD_REASON" == "Schedule" ]; then
           BUILD_COMMIT=$NIGHTLY_BUILD_COMMIT
@@ -79,6 +80,7 @@
       displayName: Define build env variables
     - bash: |
         set -e
+        export PATH=$HOME/miniconda/bin:$PATH
         pip install virtualenv
         BUILD_DEPENDS="$NP_BUILD_DEP $CYTHON_BUILD_DEP $SCIPY_BUILD_DEP"
         source multibuild/common_utils.sh
@@ -95,6 +97,7 @@
       condition: eq(variables['SKIP_BUILD'], 'false')
     - bash: |
         set -xe
+        export PATH=$HOME/miniconda/bin:$PATH
         source multibuild/common_utils.sh
         source multibuild/travis_steps.sh
         source extra_functions.sh
