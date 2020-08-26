@@ -82,7 +82,6 @@
         set -e
         export PATH=$HOME/miniconda/bin:$PATH
         pip install virtualenv
-        BUILD_DEPENDS="$NP_BUILD_DEP $CYTHON_BUILD_DEP $SCIPY_BUILD_DEP"
         source multibuild/common_utils.sh
         source multibuild/travis_steps.sh
         source extra_functions.sh
