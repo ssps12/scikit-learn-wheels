@@ -82,6 +82,9 @@
         set -e
         export PATH=$HOME/miniconda/bin:$PATH
         pip install virtualenv
+        numpy --version
+        cython --version
+        scipy --version
         source multibuild/common_utils.sh
         source multibuild/travis_steps.sh
         source extra_functions.sh
